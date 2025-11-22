@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Name Aura – Stylish Name Generator</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Poppins", sans-serif;
+      background: radial-gradient(circle at top, #1e293b 0, #020617 45%, #000 100%);
+      color: #e5e7eb;
+      min-height: 100vh;
+    }
+
+    .wrapper {
+      max-width: 540px;
+      margin: 0 auto;
+      padding: 18px 14px 32px;
+    }
+
+    .title {
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1.3;
+      margin-bottom: 4px;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: #94a3b8;
+      margin-bottom: 16px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      margin-bottom: 8px;
+      font-size: 11px;
+      color: #cbd5f5;
+    }
+
+    .hero-badge span.icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 0, #38bdf8 0, #6366f1 35%, #a855f7 70%, #f97316 100%);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+
+    .section {
+      margin-top: 18px;
+      padding: 14px 12px 16px;
+      border-radius: 18px;
+      background: linear-gradient(145deg, rgba(15, 23, 42, 0.95), rgba(15, 23, 42, 0.9));
+      border: 1px solid rgba(148, 163, 184, 0.35);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.9);
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .section-tag {
+      font-size: 11px;
+      color: #a5b4fc;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(30, 64, 175, 0.5);
+    }
+
+    .section-desc {
+      font-size: 12px;
+      color: #9ca3af;
+      margin-bottom: 12px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .name-card {
+      background: radial-gradient(circle at top, #111827 0, #020617 60%);
+      border-radius: 14px;
+      padding: 8px 10px 9px;
+      border: 1px solid rgba(55, 65, 81, 0.9);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      min-height: 60px;
+    }
+
+    .name-main {
+      font-size: 14px;
+      font-weight: 600;
+      color: #e5e7eb;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+
+    .name-sub {
+      font-size: 12px;
+      color: #a5b4fc;
+    }
+
+    .btn-copy {
+      margin-top: 6px;
+      align-self: flex-start;
+      font-size: 11px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(96, 165, 250, 0.7);
+      background: rgba(15, 23, 42, 0.8);
+      color: #bfdbfe;
+      cursor: pointer;
+    }
+
+    .input-group {
+      margin-top: 6px;
+      margin-bottom: 8px;
+    }
+
+    .input-group label {
+      display: block;
+      font-size: 12px;
+      margin-bottom: 4px;
+      color: #e5e7eb;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 10px 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.9);
+      color: #e5e7eb;
+      font-size: 13px;
+      outline: none;
+    }
+
+    .input-group input::placeholder {
+      color: #6b7280;
+    }
+
+    .btn-primary {
+      width: 100%;
+      margin-top: 8px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: none;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      color: #f9fafb;
+      background-image: linear-gradient(90deg, #22d3ee, #6366f1, #a855f7, #f97316);
+      background-size: 200% 100%;
+      transition: background-position 0.4s ease, transform 0.1s ease;
+      box-shadow: 0 10px 30px rgba(56, 189, 248, 0.35);
+    }
+
+    .btn-primary:active {
+      transform: scale(0.98);
+    }
+
+    .btn-primary:hover {
+      background-position: 100% 0;
+    }
+
+    .generated-grid {
+      margin-top: 10px;
+    }
+
+    .generated-title {
+      font-size: 12px;
+      color: #9ca3af;
+      margin-bottom: 6px;
+    }
+
+    .small-note {
+      font-size: 11px;
+      color: #6b7280;
+      margin-top: 4px;
+    }
+
+    hr.soft {
+      border: none;
+      border-top: 1px dashed rgba(55, 65, 81, 0.9);
+      margin: 14px 0 10px;
+    }
+
+    #toast {
+      position: fixed;
+      bottom: 18px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(96, 165, 250, 0.9);
+      color: #e5e7eb;
+      font-size: 12px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+      z-index: 50;
+    }
+
+    #toast.show {
+      opacity: 1;
+    }
+
+    @media (min-width: 600px) {
+      .title {
+        font-size: 26px;
+      }
+      .section {
+        border-radius: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="hero-badge">
+      <span class="icon">Sf</span>
+      <span>Name Aura • Stylish Name Fonts</span>
+    </div>
+
+    <h1 class="title">Name Aura – Stylish Name Generator</h1>
+    <p class="subtitle">
+      Insta bio, WhatsApp, Free Fire, gaming ID – sab ke liye stylish naam yahin se banao. 
+      Pehle se ready styles bhi, aur apna khud ka naam generator bhi.
+    </p>
+
+    <!-- SECTION 1: NORMAL STYLISH NAMES -->
+    <section class="section" id="normal-section">
+      <div class="section-header">
+        <h2 class="section-title">⭐ Stylish Name Gallery</h2>
+        <span class="section-tag">Popular names</span>
+      </div>
+      <p class="section-desc">
+        Neeche Indian names ke stylish versions diye hain. Direct <b>Copy</b> karke use karo – ya
+        niche box mein apna naam likh ke 20+ naye styles banao.
+      </p>
+
+      <!-- Ready stylish names -->
+      <div class="grid" id="readyNameGrid">
+        <!-- Left column names -->
+        <div class="name-card">
+          <div class="name-main">⚡ SHIVAM ⚡</div>
+          <div class="name-sub">『ＳＨＩＶＡＭ』</div>
+          <button class="btn-copy" data-copy="⚡ SHIVAM ⚡">Copy</button>
+        </div>
+
+        <div class="name-card">
+          <div class="name-main">⚡ KAVYA ⚡</div>
+          <div class="name-sub">『KΛVYΛ』</div>
+          <button class="btn-copy" data-copy="⚡ KAVYA ⚡">Copy</button>
+        </div>
+
+        <div class="name-card">
+          <div class="name-main">✦ PRIYA ✦</div>
+          <div class="name-sub">♡ Pʀɪʏᴀ ♡</div>
+          <button class="btn-copy" data-copy="✦ PRIYA ✦">Copy</button>
+        </div>
+
+        <div class="name-card">
+          <div class="name-main">『 AYAN 』</div>
+          <div class="name-sub">⚜ ᗩYᗩᑎ ⚜</div>
+          <button class="btn-copy" data-copy="『 AYAN 』">Copy</button>
+        </div>
+
+        <div class="name-card">
+          <div class="name-main">♛ NEHA ♛</div>
+          <div class="name-sub">✿ Nҽhα ✿</div>
+          <button class="btn-copy" data-copy="♛ NEHA ♛">Copy</button>
+        </div>
+
+        <div class="name-card">
+          <div class="name-main">ROHANツ</div>
+          <div class="name-sub">『ＲＯＨＡＮ』</div>
+          <button class="btn-copy" data-copy="ROHANツ">Copy</button>
+        </div>
+
+        <div class="name-card">
+          <div class="name-main">ADI</div>
+          <div class="name-sub">ＡＤＩ</div>
+          <button class="btn-copy" data-copy="ADI">Copy</button>
+        </div>
+
+        <div class="name-card">
+          <div class="name-main">☯ KHUSHI ☯</div>
+          <div class="name-sub">Kʜᴜsʜɪ</div>
+          <button class="btn-copy" data-copy="☯ KHUSHI ☯">Copy</button>
+        </div>
+      </div>
+
+      <!-- Generate your own name -->
+      <hr class="soft" />
+
+      <div class="section-header" style="margin-bottom:6px;">
+        <h2 class="section-title">🔄 Generate Your Own Stylish Name</h2>
+      </div>
+
+      <div class="input-group">
+        <label for="userNameInput">Enter your name…</label>
+        <input id="userNameInput" type="text" placeholder="e.g. Suraj, Legend Boy, Queen…" />
+      </div>
+
+      <button class="btn-primary" id="generateNameBtn">Generate Styles</button>
+      <div class="small-note">
+        Tip: Capital letters + 1–2 words best work karte hain (ex: <b>SURAJ</b>, <b>MR SURAJ</b>).
+      </div>
+
+      <div class="generated-grid" id="userStylesBlock" style="display:none;">
+        <div class="generated-title">Your stylish name styles (tap copy):</div>
+        <div class="grid" id="userStylesGrid"></div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: FREE FIRE NICKNAME -->
+    <section class="section" id="ff-section" style="margin-top:16px;">
+      <div class="section-header">
+        <h2 class="section-title">🔥 Free Fire Nickname Generator</h2>
+        <span class="section-tag">FF & gaming IDs</span>
+      </div>
+      <p class="section-desc">
+        Niche ready-made FF names diye hain – <b>Suraj FF, Aura 999+, Defaulter Boy</b> aur aur bhi. 
+        Neeche box mein apna FF naam likho aur 20+ naye styles le lo.
+      </p>
+
+      <!-- Ready FF names gallery -->
+      <div class="grid" id="readyFFGrid">
+        <div class="name-card">
+          <div class="name-main">꧁🔥 SURAJ FF 🔥꧂</div>
+          <div class="name-sub">ＳＵＲＡＪＦＦ</div>
+          <button class="btn-copy" data-copy="꧁🔥 SURAJ FF 🔥꧂">Copy</button>
+        </div>
+
+        <div class="name-card">
+          <div class="name-main">AURA 999+</div>
+          <div class="name-sub">『ＡＵＲＡ 999ツ』</div>
+          <button class="btn-copy" data-copy="AURA 999+">Copy</button>
+        </div>
+
+        <div class="name-card">
+          <div class="name-main">DEFAULTER BOY</div>
+          <div class="name-sub">ＤｅｆａｕｌｔｅｒＢｏｙシ</div>
+          <button class="btn-copy" data-copy="DEFAULTER BOY">Copy</button>
+        </div>
+
+        <div class="name-card">
+          <div class="name-main">LEGEND • SURAJ</div>
+          <div class="name-sub">♛ Lᴇɢᴇɴᴅ Sᴜʀᴀᴊ ♛</div>
+          <button class="btn-copy" data-copy="LEGEND • SURAJ">Copy</button>
+        </div>
+
+        <div class="name-card">
+          <div class="name-main">꧁ NOOB KING ꧂</div>
+          <div class="name-sub">ＮｏｏｂＫｉｎｇ</div>
+          <button class="btn-copy" data-copy="꧁ NOOB KING ꧂">Copy</button>
+        </div>
+
+        <div class="name-card">
+          <div class="name-main">ᴳᵒᵈＦＦ AURA</div>
+          <div class="name-sub">ＧｏｄＡｕｒａＦＦ</div>
+          <button class="btn-copy" data-copy="ᴳᵒᵈＦＦ AURA">Copy</button>
+        </div>
+
+        <div class="name-card">
+          <div class="name-main">OP HEADSHOTツ</div>
+          <div class="name-sub">Ｈｅａｄｓｈｏｔツ</div>
+          <button class="btn-copy" data-copy="OP HEADSHOTツ">Copy</button>
+        </div>
+
+        <div class="name-card">
+          <div class="name-main">毒 Toxic Boy</div>
+          <div class="name-sub">ＴｏｘｉｃＢｏｙ</div>
+          <button class="btn-copy" data-copy="毒 Toxic Boy">Copy</button>
+        </div>
+
+        <div class="name-card">
+          <div class="name-main">★ KING ◥SURAJ◤</div>
+          <div class="name-sub">ＫＩＮＧ SURAJ</div>
+          <button class="btn-copy" data-copy="★ KING ◥SURAJ◤">Copy</button>
+        </div>
+
+        <div class="name-card">
+          <div class="name-main">꧁༒☬ Aura Suraj ☬༒꧂</div>
+          <div class="name-sub">ＡｕｒａＳｕｒａｊ</div>
+          <button class="btn-copy" data-copy="꧁༒☬ Aura Suraj ☬༒꧂">Copy</button>
+        </div>
+      </div>
+
+      <hr class="soft" />
+
+      <div class="section-header" style="margin-bottom:6px;">
+        <h2 class="section-title">🎮 Generate Your FF Nickname</h2>
+      </div>
+
+      <div class="input-group">
+        <label for="ffInput">Enter FF nickname…</label>
+        <input id="ffInput" type="text" placeholder="e.g. Suraj FF, Pro Boy, Queen GG…" />
+      </div>
+
+      <button class="btn-primary" id="generateFFBtn">Generate FF Styles</button>
+      <div class="small-note">
+        Tip: Short names + “FF / YT / OP / X” jod ke dekho – output aur mast dikhega.
+      </div>
+
+      <div class="generated-grid" id="ffStylesBlock" style="display:none;">
+        <div class="generated-title">Your FF styles:</div>
+        <div class="grid" id="ffStylesGrid"></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast">Copied!</div>
+
+  <script>
+    // Toast helper
+    function showToast(msg) {
+      const el = document.getElementById("toast");
+      el.textContent = msg;
+      el.classList.add("show");
+      setTimeout(() => el.classList.remove("show"), 1500);
+    }
+
+    // Copy buttons (ready names)
+    document.addEventListener("click", (e) => {
+      const btn = e.target.closest(".btn-copy");
+      if (!btn) return;
+      const text = btn.getAttribute("data-copy") || btn.innerText;
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => showToast("Copied: " + text));
+      } else {
+        const temp = document.createElement("textarea");
+        temp.value = text;
+        document.body.appendChild(temp);
+        temp.select();
+        document.execCommand("copy");
+        document.body.removeChild(temp);
+        showToast("Copied: " + text);
+      }
+    });
+
+    // Style patterns
+    const namePatterns = [
+      (n) => "★ " + n.toUpperCase() + " ★",
+      (n) => "『 " + n.toUpperCase() + " 』",
+      (n) => "✿ " + n + " ✿",
+      (n) => "♛ " + n.toUpperCase() + " ♛",
+      (n) => "♡ " + n + " ♡",
+      (n) => "ツ " + n + " ツ",
+      (n) => "꧁ " + n.toUpperCase() + " ꧂",
+      (n) => "༄ᶦᶰ᭄ " + n + " ᴮᵒˢˢ",
+      (n) => "︵‿ " + n.toUpperCase() + " ‿︵",
+      (n) => "☯ " + n + " ☯",
+      (n) => "➳ " + n.toUpperCase(),
+      (n) => "✦ " + n + " ✦",
+      (n) => "《 " + n.toUpperCase() + " 》",
+      (n) => "⚡ " + n + " ⚡",
+      (n) => "°• " + n + " •°",
+      (n) => "ꜱ᭄ " + n + " √",
+      (n) => "♜ " + n.toUpperCase() + " ♜",
+      (n) => "✘ " + n + " ✘",
+      (n) => "◥ " + n.toUpperCase() + " ◤",
+      (n) => "꧁༺ " + n + " ༻꧂"
+    ];
+
+    function generateStylesFor(name) {
+      const clean = name.trim();
+      if (!clean) return [];
+      const results = [];
+      const shuffled = [...namePatterns].sort(() => Math.random() - 0.5);
+      shuffled.forEach((fn) => {
+        results.push(fn(clean));
+      });
+      return results;
+    }
+
+    function renderStyles(gridId, styles) {
+      const grid = document.getElementById(gridId);
+      grid.innerHTML = "";
+      styles.slice(0, 20).forEach((s) => {
+        const card = document.createElement("div");
+        card.className = "name-card";
+        card.innerHTML =
+          '<div class="name-main">' +
+          s +
+          '</div><button class="btn-copy" data-copy="' +
+          s.replace(/"/g, "&quot;") +
+          '">Copy</button>';
+        grid.appendChild(card);
+      });
+    }
+
+    // Normal name generator
+    document.getElementById("generateNameBtn").addEventListener("click", () => {
+      const val = document.getElementById("userNameInput").value;
+      if (!val.trim()) {
+        alert("Pehle apna naam likho 🙂");
+        return;
+      }
+      const styles = generateStylesFor(val);
+      if (!styles.length) return;
+      renderStyles("userStylesGrid", styles);
+      document.getElementById("userStylesBlock").style.display = "block";
+      showToast("Stylish name ready!");
+    });
+
+    // FF name generator (same logic, bas alag box)
+    document.getElementById("generateFFBtn").addEventListener("click", () => {
+      const val = document.getElementById("ffInput").value;
+      if (!val.trim()) {
+        alert("Pehle apna FF nickname likho 🙂");
+        return;
+      }
+      const styles = generateStylesFor(val);
+      if (!styles.length) return;
+      renderStyles("ffStylesGrid", styles);
+      document.getElementById("ffStylesBlock").style.display = "block";
+      showToast("FF nickname styles ready!");
+    });
+  </script>
+</body>
+</html>
